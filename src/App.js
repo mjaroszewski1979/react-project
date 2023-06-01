@@ -1,3 +1,5 @@
+import React from "react";
+// need to import in all components using jsx
 import Expenses from "./components/Expenses";
 
 const expenses = [
@@ -37,6 +39,13 @@ function App() {
     </div>
   );
 }
+
+// return React.createElement(
+// 'div', 
+// {}, 
+// React.createElement('h2', {}, "Let's get started!"),
+// React.createElement(Expenses, {items : expenses})
+// );
 
 export default App;
 
