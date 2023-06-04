@@ -1,6 +1,6 @@
 import React from "react";
 // need to import in all components using jsx
-import Expenses from "./components/Expenses";
+import Expenses from "./components/Expenses/Expenses";
 
 const expenses = [
   {
