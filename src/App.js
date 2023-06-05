@@ -1,6 +1,8 @@
 import React from "react";
 // need to import in all components using jsx
 import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpense/NewExpense";
+import ExpenseForm from "./components/NewExpense/ExpenseForm";
 
 const expenses = [
   {
@@ -32,7 +34,7 @@ const expenses = [
 function App() {
   return (
     <div>
-      <h2>Let's get started!</h2>
+      <NewExpense/>
       <Expenses 
       items={expenses}
       ></Expenses>
