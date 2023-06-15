@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 // need to import in all components using jsx
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 import ExpenseForm from "./components/NewExpense/ExpenseForm";
 
-const expenses = [
+const DUMMY_EXPENSES = [
   {
     id: 'e1',
     title: 'Toilet Paper',
@@ -34,8 +34,12 @@ const expenses = [
 
 
 function App() {
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+
   const addExpenseHandler = (expense) => {
-    console.log(expense)
+    setExpenses((prevExpenses) => {
+      return [expense, ...prevExpenses]
+    })
   };
   return (
     <div>
