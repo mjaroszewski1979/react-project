@@ -2,7 +2,7 @@ import Card from "./Card";
 import Button from "./Button";
 import classes from "./ErrorModal.module.css";
 import { Fragment } from "react";
-import reactDom from "react-dom";
+import ReactDOM from "react-dom";
 
 const Backdrop = props => {
     return <div className={classes.backdrop} onClick={props.onConfirm}></div>;
