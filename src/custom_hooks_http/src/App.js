@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
@@ -6,7 +6,7 @@ import useHttp from './hooks/use-http';
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const transormTasks = tasksObj => {
+  const transormTasks = useCallback(tasksObj => {
     const loadedTasks = [];
 
       for (const taskKey in tasksObj) {
@@ -15,12 +15,12 @@ function App() {
 
       setTasks(loadedTasks);
 
-  };
-  const {isLoading, error, sendRequest: fetchTasks} = useHttp({url: 'https://hooks-http-67a94-default-rtdb.europe-west1.firebasedatabase.app/tasks.json'}, transormTasks);
+  }, []);
+  const {isLoading, error, sendRequest: fetchTasks} = useHttp(transormTasks);
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    fetchTasks({url: 'https://hooks-http-67a94-default-rtdb.europe-west1.firebasedatabase.app/tasks.json'});
+  }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
