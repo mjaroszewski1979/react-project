@@ -32,6 +32,7 @@ const DUMMY_MEALS = [
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch('firebase.meals.json');
@@ -49,11 +50,21 @@ const AvailableMeals = () => {
       }
 
       setMeals(loadedMeals);
+      setIsLoading(false);
     };
     fetchMeals();
 
   }, [])
-    const mealsList = DUMMY_MEALS.map(meal => 
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Loading...</p>
+      </section>
+    );
+  }
+  
+    const mealsList = meals.map(meal => 
     <MealItem 
       id={meal.id}
       key={meal.id} 
