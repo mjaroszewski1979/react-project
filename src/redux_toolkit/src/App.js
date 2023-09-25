@@ -4,7 +4,7 @@ import Cart from './components/Cart/Cart';
 import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
 import Notification from './components/UI/Notification'
-import { uiActions } from './store/ui-slice';
+import { sendCartData } from './store/cart-slice';
 
 let isInitial = true;
 
@@ -15,39 +15,16 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const cartDataSender = async () => {
-      dispatch(uiActions.showNotification({
-        status: 'pending',
-        title: 'sending...',
-        message: 'Sending cart data.'
-      }))
-      const response = await fetch('firebase-url', { method: 'PUT', body: JSON.stringify(cart)})
-
-      if (!response.ok) {
-        throw new Error('Sending data failed!')
-
-      }
-
-      dispatch(uiActions.showNotification({
-        status: 'success',
-        title: 'Success...',
-        message: 'Sending cart data successfully.'
-      }))
-    }
-
+  
     if (isInitial) {
       isInitial = false;
       return;
     }
 
-    cartDataSender().catch(error => {
-      dispatch(uiActions.showNotification({
-        status: 'error',
-        title: 'Error...',
-        message: 'Sending cart data failed.'
-      }))
-    })
+    dispatch(sendCartData(cart));
+
   }, [cart, dispatch]);
+
   return (
     <Fragment>
       {notification && <Notification 
@@ -60,7 +37,6 @@ function App() {
         <Products />
       </Layout>
     </Fragment>
-
   );
 }
 
