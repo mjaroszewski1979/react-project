@@ -15,9 +15,10 @@ export async function loader() {
   const response = await fetch('http://localhost:8080/events');
 
       if (!response.ok) {
+        throw { message: 'Could not fetch the data...' };
         
       } else {
-        const resData = await response.json();
-        return resData.events
+        
+        return response;
       }
 };
